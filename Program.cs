@@ -24,6 +24,8 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IStockRepository, StockRepository>();
+builder.Services.AddScoped<IUser_Credentials, User_Credentials_Repository>();
+builder.Services.AddScoped<IJWT_Service, JWT_Service_Repository>();
 //Dependency Injection For The Repository
 
 

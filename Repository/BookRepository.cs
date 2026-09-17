@@ -1,8 +1,6 @@
 ﻿using Library_Management.Connection;
 using Library_Management.Entities;
 using Library_Management.IRepository;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 namespace Library_Management.Repository
 {
