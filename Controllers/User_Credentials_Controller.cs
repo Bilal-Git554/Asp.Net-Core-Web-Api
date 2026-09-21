@@ -30,7 +30,7 @@ namespace Library_Management.Controllers
 
 
         [HttpPost("{login}")]
-        public async Task<ActionResult<JWT_Response>> Login(User_Credentials T)
+        public async Task<ActionResult<JWT_Service>> Login(User_Credentials T)
         {
             var user = await _user_Credentials.GetUserbyEmail(T);
 
@@ -39,9 +39,9 @@ namespace Library_Management.Controllers
                 return Unauthorized();
             }
 
-            var token = _jwt_Service.Create_Token(T.User_Email);
+            var token = _jwt_Service.Create_Token(user.User_Email);
 
-            return Ok(new JWT_Response
+            return Ok(new JWT_Service
             {
                 Email = user.User_Email,
                 Token = token
