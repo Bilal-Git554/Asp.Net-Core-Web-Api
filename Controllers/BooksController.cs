@@ -30,7 +30,7 @@ namespace Library_Management.Controllers
         }//Display All The Data
 
 
-        [HttpGet("{id}")]
+        [HttpPost("read/{id}")]
         public async Task<ActionResult<Book>> Readby_Id(int id)
         {
             var Id = await _IBook.Readby_Id(id);
@@ -63,7 +63,7 @@ namespace Library_Management.Controllers
         }//Update The Data
 
 
-        [HttpDelete("{id}")]
+        [HttpPost("delete/{id}")]
         public async Task<ActionResult<Book>> Delete_Data (int id)
         {
             var Delete = await _IBook.Delete_Data(id);
