@@ -3,6 +3,7 @@ using Library_Management.Connection;
 using Library_Management.Entities;
 using Library_Management.IRepository;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Library_Management.Repository
@@ -42,6 +43,16 @@ namespace Library_Management.Repository
             await _context.AddAsync(C);
             await _context.SaveChangesAsync();
             return C;
+        }
+
+        public async Task<bool> Forgot_User(Forgot_Password email)
+        {
+            var forgot = await _context.User_Credentials.AnyAsync(x => x.User_Email == email.Email);
+            if(forgot == false)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

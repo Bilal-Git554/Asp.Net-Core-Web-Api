@@ -29,7 +29,7 @@ namespace Library_Management.Controllers
         }
 
 
-        [HttpPost("{login}")]
+        [HttpPost("login")]
         public async Task<ActionResult<JWT_Service>> Login(User_Credentials T)
         {
             var user = await _user_Credentials.GetUserbyEmail(T);
@@ -46,6 +46,17 @@ namespace Library_Management.Controllers
                 Email = user.User_Email,
                 Token = token
             });
+        }
+
+        [HttpPost("forgot-password")]
+        public async Task<ActionResult<bool>> Forgot_User(Forgot_Password email)
+        {
+            var forgot = await _user_Credentials.Forgot_User(email);
+            if(forgot == false)
+            {
+                return NotFound("User Not Found!");
+            }
+            return Ok("User Founded!");
         }
     }
 }
