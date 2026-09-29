@@ -12,15 +12,15 @@ namespace Library_Management.Entities
 
         [Required]
         [StringLength(100)]
-        public string Book_Name { get; set; }
+        public string? Book_Name { get; set; }
 
         [Required]
         [StringLength(100)]
-        public string Author_Name { get; set; }
+        public string? Author_Name { get; set; }
 
         [Required]
         [StringLength(100)]
-        public string About_Book { get; set; }
+        public string? About_Book { get; set; }
 
         [Required]
         [DataType(DataType.Date)]

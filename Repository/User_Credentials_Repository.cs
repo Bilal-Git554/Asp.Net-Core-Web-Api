@@ -4,6 +4,7 @@ using Library_Management.Entities;
 using Library_Management.IRepository;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
 
 
 namespace Library_Management.Repository
@@ -52,6 +53,10 @@ namespace Library_Management.Repository
             {
                 return false;
             }
+
+            var TokenBytes = RandomNumberGenerator.GetBytes(32);
+            var ResetToken = Convert.ToBase64String(TokenBytes);
+
             return true;
         }
     }
