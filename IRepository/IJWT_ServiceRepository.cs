@@ -2,7 +2,7 @@
 
 namespace Library_Management.IRepository
 {
-    public interface IJWT_Service
+    public interface IJWT_ServiceRepository
     {
         string Create_Token(string email);
     }

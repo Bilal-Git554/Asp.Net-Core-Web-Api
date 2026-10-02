@@ -9,10 +9,10 @@ namespace Library_Management.Controllers
     [ApiController]
     public class User_Credentials_Controller : ControllerBase
     {
-        private IUser_Credentials _user_Credentials;
-        private IJWT_Service _jwt_Service;
-        public User_Credentials_Controller(IUser_Credentials user_Credentials,
-            IJWT_Service jwt_Service)
+        private readonly IUser_CredentialsRepository _user_Credentials;
+        private readonly IJWT_ServiceRepository _jwt_Service;
+        public User_Credentials_Controller(IUser_CredentialsRepository user_Credentials,
+            IJWT_ServiceRepository jwt_Service)
         {
             _user_Credentials = user_Credentials;
             _jwt_Service = jwt_Service;
@@ -49,14 +49,14 @@ namespace Library_Management.Controllers
         }
 
         [HttpPost("forgot-password")]
-        public async Task<ActionResult<bool>> Forgot_User(Forgot_Password email)
+        public async Task<ActionResult<Forgot_Password>> Forgot_User(Forgot_Password email)
         {
             var forgot = await _user_Credentials.Forgot_User(email);
-            if(forgot == false)
+            if (forgot == null)
             {
-                return NotFound("User Not Found!");
+                return NotFound();
             }
-            return Ok("User Founded!");
+            return Ok(forgot);
         }
     }
 }

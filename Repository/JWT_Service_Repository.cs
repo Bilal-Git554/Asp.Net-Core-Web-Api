@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Library_Management.Repository
 {
-    public class JWT_Service_Repository : IJWT_Service
+    public class JWT_Service_Repository : IJWT_ServiceRepository
     {
         private readonly IConfiguration _configuration;
         public JWT_Service_Repository(IConfiguration configuration)
