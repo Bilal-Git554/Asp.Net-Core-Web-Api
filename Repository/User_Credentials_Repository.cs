@@ -1,6 +1,7 @@
 ﻿using Library_Management.Connection;
 using Library_Management.Entities;
 using Library_Management.IRepository;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 
 
@@ -54,7 +55,6 @@ namespace Library_Management.Repository
             var TokenBytes = RandomNumberGenerator.GetBytes(32);
             var ResetToken = Convert.ToBase64String(TokenBytes);
             var ResetLink = $"http://localhost:4200/reset-password?token={ResetToken}";
-            Console.WriteLine($"Reset Link: {ResetLink}");
 
             var reset = new Forgot_Password
             { 
@@ -67,6 +67,37 @@ namespace Library_Management.Repository
             await _context.SaveChangesAsync();
 
             return reset;
+        }
+
+        public async Task<Reset_Password?> Reset_User(Reset_Password reset)
+        {
+            var find_token = await _context.Forgot_Password.FirstOrDefaultAsync(x => x.Reset_Token == reset.Token);
+            if(find_token == null)
+            {
+                return null; 
+            }
+            if(find_token.Reset_Token_Expiry < DateTime.UtcNow)
+            {
+                return null;
+            }
+            else
+            {
+                var update_password = await _context.User_Credentials.FindAsync(find_token.Email);
+                if (update_password == null)
+                {
+                    return null;
+                }
+                reset.New_Password = BCrypt.Net.BCrypt.EnhancedHashPassword(reset.New_Password, workFactor: 13);
+                update_password.User_Password = reset.New_Password;
+
+                _context.User_Credentials.Update(update_password);
+                await _context.SaveChangesAsync();
+
+                _context.Forgot_Password.Remove(find_token);
+                await _context.SaveChangesAsync();
+
+                return reset;
+            }
         }
     }
 }

@@ -58,5 +58,16 @@ namespace Library_Management.Controllers
             }
             return Ok(forgot);
         }
+
+        [HttpPost("reset-password")]
+        public async Task<ActionResult<Reset_Password>> Reset_User(Reset_Password reset)
+        {
+            var reset_password = await _user_Credentials.Reset_User(reset);
+            if (reset_password == null)
+            {
+                return NotFound("Invalid Or Expired Reset Token.");
+            }
+            return Ok("Password Reseted Successfully!");
+        }
     }
 }
