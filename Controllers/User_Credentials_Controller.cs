@@ -65,9 +65,9 @@ namespace Library_Management.Controllers
             var reset_password = await _user_Credentials.Reset_User(reset);
             if (reset_password == null)
             {
-                return NotFound("Invalid Or Expired Reset Token.");
+                return NotFound("Invalid Or Expired Session!");
             }
-            return Ok("Password Reseted Successfully!");
+            return Ok("Password Resetted Successfully!");
         }
     }
 }

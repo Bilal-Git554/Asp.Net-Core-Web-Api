@@ -1,7 +1,9 @@
 ﻿using Library_Management.Connection;
 using Library_Management.Entities;
 using Library_Management.IRepository;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 
 
@@ -46,28 +48,55 @@ namespace Library_Management.Repository
 
         public async Task<Forgot_Password?> Forgot_User(Forgot_Password email)
         {
-            var forgot = await _context.User_Credentials.FindAsync(email.Email);
-            if (forgot == null)
+            var already_exists = await _context.Forgot_Password.FindAsync(email.Email);
+            if (already_exists != null)
             {
-                return null;
+                var TokenBytes = RandomNumberGenerator.GetBytes(32);
+                var ResetToken = Convert.ToBase64String(TokenBytes);
+                var ResetLink = $"http://localhost:4200/reset-password?token={ResetToken}";
+
+                Console.WriteLine($"Reset Link: {ResetLink}");
+
+
+                already_exists.Email = email.Email;
+                already_exists.Reset_Token = ResetToken;
+                already_exists.Reset_Token_Expiry = DateTime.UtcNow.AddMinutes(30);
+
+                _context.Forgot_Password.Update(already_exists);
+                await _context.SaveChangesAsync();
+
+                return already_exists;
             }
 
-            var TokenBytes = RandomNumberGenerator.GetBytes(32);
-            var ResetToken = Convert.ToBase64String(TokenBytes);
-            var ResetLink = $"http://localhost:4200/reset-password?token={ResetToken}";
+            else
+            {
+                var new_addition = await _context.User_Credentials.FindAsync(email.Email);
+                if (new_addition != null)
+                {
 
-            var reset = new Forgot_Password
-            { 
-                Email = email.Email,
-                Reset_Token = ResetToken,
-                Reset_Token_Expiry = DateTime.UtcNow.AddMinutes(30)
-            };
+                    var TokenBytes = RandomNumberGenerator.GetBytes(32);
+                    var ResetToken = Convert.ToBase64String(TokenBytes);
+                    var ResetLink = $"http://localhost:4200/reset-password?token={ResetToken}";
 
-            await _context.Forgot_Password.AddAsync(reset);
-            await _context.SaveChangesAsync();
+                    Console.WriteLine($"Reset Link: {ResetLink}");
 
-            return reset;
+                    var reset = new Forgot_Password
+                    {
+                        Email = email.Email,
+                        Reset_Token = ResetToken,
+                        Reset_Token_Expiry = DateTime.UtcNow.AddMinutes(30)
+                    };
+
+                    await _context.Forgot_Password.AddAsync(reset);
+                    await _context.SaveChangesAsync();
+
+                    return reset;
+                }
+            }
+
+            return null;
         }
+
 
         public async Task<Reset_Password?> Reset_User(Reset_Password reset)
         {
@@ -91,9 +120,6 @@ namespace Library_Management.Repository
                 update_password.User_Password = reset.New_Password;
 
                 _context.User_Credentials.Update(update_password);
-                await _context.SaveChangesAsync();
-
-                _context.Forgot_Password.Remove(find_token);
                 await _context.SaveChangesAsync();
 
                 return reset;
