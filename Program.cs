@@ -26,6 +26,7 @@ builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<IUser_CredentialsRepository, User_Credentials_Repository>();
 builder.Services.AddScoped<IJWT_ServiceRepository, JWT_Service_Repository>();
+builder.Services.AddScoped<IEmail_Service_Repository, Email_Service_Repository>();
 //Dependency Injection For The Repository
 
 
