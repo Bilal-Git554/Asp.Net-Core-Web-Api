@@ -2,7 +2,7 @@
 
 namespace Library_Management.Entities
 {
-    public class Email_Services
+    public class Email_Service
     {
         [Required]
         [EmailAddress]

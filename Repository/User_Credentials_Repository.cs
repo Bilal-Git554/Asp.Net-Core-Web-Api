@@ -12,9 +12,12 @@ namespace Library_Management.Repository
     public class User_Credentials_Repository : IUser_CredentialsRepository
     {
         private ApplicationDbContext _context;
-        public User_Credentials_Repository(ApplicationDbContext context)
+        private readonly IEmail_Service_Repository _email_service;
+        public User_Credentials_Repository(ApplicationDbContext context,
+            IEmail_Service_Repository email_service)
         {
             _context = context;
+            _email_service = email_service;
         }
 
         //F -> Fetch Purpose
@@ -55,8 +58,14 @@ namespace Library_Management.Repository
                 var ResetToken = Convert.ToBase64String(TokenBytes);
                 var ResetLink = $"http://localhost:4200/reset-password?token={ResetToken}";
 
-                Console.WriteLine($"Reset Link: {ResetLink}");
+                var to_email_service = new Email_Service
+                {
+                    To = email.Email,
+                    Subject = "Antheaneum Library - Reset Password",
+                    Body = $"Click the following link to reset your password: {ResetLink}"
+                };
 
+                await _email_service.Send_Email(to_email_service);
 
                 already_exists.Email = email.Email;
                 already_exists.Reset_Token = ResetToken;
@@ -78,7 +87,14 @@ namespace Library_Management.Repository
                     var ResetToken = Convert.ToBase64String(TokenBytes);
                     var ResetLink = $"http://localhost:4200/reset-password?token={ResetToken}";
 
-                    Console.WriteLine($"Reset Link: {ResetLink}");
+                    var to_email_service = new Email_Service
+                    {
+                        To = email.Email,
+                        Subject = "Antheaneum Library - Reset Password",
+                        Body = $"Click the following link to reset your password: {ResetLink}"
+                    };
+
+                    await _email_service.Send_Email(to_email_service);
 
                     var reset = new Forgot_Password
                     {

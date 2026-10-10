@@ -14,7 +14,7 @@ namespace Library_Management.Repository
             _configuration = configuration;
         }
 
-        public async Task Send_Email(Email_Services email)
+        public async Task Send_Email(Email_Service email)
         {
             var host = _configuration["SMTP:Host"];
             var port = int.Parse(_configuration["SMTP:Port"]);
