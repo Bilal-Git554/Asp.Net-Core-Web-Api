@@ -14,7 +14,7 @@ namespace Library_Management.Repository
             _configuration = configuration;
         }
 
-        public async Task Send_Email(Email_Service email)
+        public async Task Send_Email(Email_Service email_with_to_body_subject)
         {
             var host = _configuration["SMTP:Host"];
             var port = int.Parse(_configuration["SMTP:Port"]);
@@ -24,12 +24,12 @@ namespace Library_Management.Repository
             var message = new MimeMessage();
 
             message.From.Add(MailboxAddress.Parse(username));
-            message.To.Add(MailboxAddress.Parse(email.To));
-            message.Subject = email.Subject;
+            message.To.Add(MailboxAddress.Parse(email_with_to_body_subject.To));
+            message.Subject = email_with_to_body_subject.Subject;
 
             message.Body = new TextPart("plain")
             {
-                Text = email.Body
+                Text = email_with_to_body_subject.Body
             };
 
             using var smtp = new SmtpClient();

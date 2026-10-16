@@ -61,8 +61,8 @@ namespace Library_Management.Repository
                 var to_email_service = new Email_Service
                 {
                     To = email.Email,
-                    Subject = "Antheaneum Library - Reset Password",
-                    Body = $"Click the following link to reset your password: {ResetLink}"
+                    Subject = "Antheaneum Library - Reset Password Requested",
+                    Body = $"Click The Following Link To Reset Your Password: {ResetLink}"
                 };
 
                 await _email_service.Send_Email(to_email_service);
@@ -90,8 +90,8 @@ namespace Library_Management.Repository
                     var to_email_service = new Email_Service
                     {
                         To = email.Email,
-                        Subject = "Antheaneum Library - Reset Password",
-                        Body = $"Click the following link to reset your password: {ResetLink}"
+                        Subject = "Antheaneum Library - Reset Password Requested",
+                        Body = $"Click The Following Link To Reset Your Password: {ResetLink}"
                     };
 
                     await _email_service.Send_Email(to_email_service);
