@@ -2,6 +2,7 @@ using Library_Management.Connection;
 using Library_Management.Entities;
 using Library_Management.IRepository;
 using Library_Management.Report;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -42,6 +43,7 @@ namespace Library_Management.Controllers
         }//Return Single Data By Id
 
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<Book>> Create_Data(Book B)
         {
