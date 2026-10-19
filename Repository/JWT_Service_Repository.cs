@@ -33,8 +33,9 @@ namespace Library_Management.Repository
                 securityKey,SecurityAlgorithms.HmacSha256);
             //Using A HMAC-SHA256 Algorithm For The Bytes
 
-            var token = new JwtSecurityToken(
-                claims: claims,signingCredentials: credentials);
+            var token = new JwtSecurityToken(claims: claims,
+                        expires: DateTime.UtcNow.AddMinutes(30),
+                        signingCredentials: credentials);
             //Create A Jwt Token For These Claims Based On These Credentials
 
             var tokenHandler = new JwtSecurityTokenHandler();
