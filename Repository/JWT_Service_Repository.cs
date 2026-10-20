@@ -31,9 +31,10 @@ namespace Library_Management.Repository
 
             var credentials = new SigningCredentials(
                 securityKey,SecurityAlgorithms.HmacSha256);
-            //Using A HMAC-SHA256 Algorithm For The Bytes
+            //Using A HMAC-SHA256 Algorithm On The Bytes
 
-            var token = new JwtSecurityToken(claims: claims,
+            var token = new JwtSecurityToken(
+                        claims: claims,
                         expires: DateTime.UtcNow.AddMinutes(30),
                         signingCredentials: credentials);
             //Create A Jwt Token For These Claims Based On These Credentials
