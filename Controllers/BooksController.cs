@@ -52,6 +52,7 @@ namespace Library_Management.Controllers
         }//Insert The Data Only If The Request Comes With Token
 
 
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<ActionResult<Book>> Update_Data(int id , Book U)
         {
@@ -65,6 +66,7 @@ namespace Library_Management.Controllers
         }//Update The Data
 
 
+        [Authorize]
         [HttpPost("delete/{id}")]
         public async Task<ActionResult<Book>> Delete_Data (int id)
         {
