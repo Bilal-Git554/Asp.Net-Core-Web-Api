@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Library_Management.Entities
 {
@@ -11,5 +12,8 @@ namespace Library_Management.Entities
 
         [Required]
         public string User_Password { get; set; }
+
+        [NotNull]
+        public string User_Role { get; set; } = "User";
     }
 }

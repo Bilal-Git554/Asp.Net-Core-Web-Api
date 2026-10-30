@@ -94,6 +94,10 @@ namespace Library_Management.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("User_Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("User_Email");
 
                     b.ToTable("User_Credentials");

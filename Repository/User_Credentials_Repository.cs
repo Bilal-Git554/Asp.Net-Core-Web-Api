@@ -44,7 +44,7 @@ namespace Library_Management.Repository
         public async Task<User_Credentials> Add_User(User_Credentials C)
         {
             C.User_Password = BCrypt.Net.BCrypt.EnhancedHashPassword(C.User_Password,workFactor : 13);
-            await _context.AddAsync(C);
+            await _context.User_Credentials.AddAsync(C);
             await _context.SaveChangesAsync();
             return C;
         }
