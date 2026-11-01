@@ -43,7 +43,7 @@ namespace Library_Management.Controllers
         }//Return Single Data By Id
 
 
-        [Authorize]
+        [Authorize(Policy = "AdminOnly")]
         [HttpPost]
         public async Task<ActionResult<Book>> Create_Data(Book B)
         {
@@ -52,7 +52,7 @@ namespace Library_Management.Controllers
         }//Insert The Data Only If The Request Comes With Token
 
 
-        [Authorize]
+        [Authorize(Policy = "AdminOnly")]
         [HttpPut("{id}")]
         public async Task<ActionResult<Book>> Update_Data(int id , Book U)
         {
@@ -66,7 +66,7 @@ namespace Library_Management.Controllers
         }//Update The Data
 
 
-        [Authorize]
+        [Authorize(Policy = "AdminOnly")]
         [HttpPost("delete/{id}")]
         public async Task<ActionResult<Book>> Delete_Data (int id)
         {

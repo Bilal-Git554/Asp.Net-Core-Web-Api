@@ -1,7 +1,9 @@
+using Library_Management.Authorization;
 using Library_Management.Connection;
 using Library_Management.IRepository;
 using Library_Management.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -30,6 +32,7 @@ builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<IUser_CredentialsRepository, User_Credentials_Repository>();
 builder.Services.AddScoped<IJWT_ServiceRepository, JWT_Service_Repository>();
 builder.Services.AddScoped<IEmail_Service_Repository, Email_Service_Repository>();
+builder.Services.AddScoped<IAuthorizationHandler, AdminAuthorizationHandler>();
 //Dependency Injection For The Repository
 
 
@@ -65,6 +68,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 //Authentication For The JWT Bearer Token
+
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy =>
+    {
+        policy.Requirements.Add(new Admin_Requirement());
+    });
+});
+//Authorization For The Admin Role Using The Custom Requirement
 
 
 var app = builder.Build();

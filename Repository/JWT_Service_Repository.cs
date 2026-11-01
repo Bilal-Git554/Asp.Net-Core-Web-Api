@@ -15,11 +15,12 @@ namespace Library_Management.Repository
             _configuration = configuration;
         }
 
-        public string Create_Token(string email)
+        public string Create_Token(string email,string role)
         {
             var claims = new[]
             {
-            new Claim(ClaimTypes.Email, email)
+              new Claim(ClaimTypes.Email, email),
+              new Claim(ClaimTypes.Role, role)
             };
 
             var key = _configuration["Jwt:Key"];

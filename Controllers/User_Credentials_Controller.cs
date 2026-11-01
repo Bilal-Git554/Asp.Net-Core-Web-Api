@@ -38,12 +38,11 @@ namespace Library_Management.Controllers
             {
                 return Unauthorized();
             }
-
-            var token = _jwt_Service.Create_Token(user.User_Email);
+            
+            var token = _jwt_Service.Create_Token(user.User_Email, user.User_Role);
 
             return Ok(new JWT_Service
-            {
-                Email = user.User_Email,
+            { 
                 Token = token
             });
         }

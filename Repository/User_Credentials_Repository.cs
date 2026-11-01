@@ -11,7 +11,7 @@ namespace Library_Management.Repository
 {
     public class User_Credentials_Repository : IUser_CredentialsRepository
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly IEmail_Service_Repository _email_service;
         public User_Credentials_Repository(ApplicationDbContext context,
             IEmail_Service_Repository email_service)
