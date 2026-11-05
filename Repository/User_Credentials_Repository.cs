@@ -62,7 +62,7 @@ namespace Library_Management.Repository
                 {
                     To = email.Email,
                     Subject = "Antheaneum Library - Reset Password Requested",
-                    Body = $"Click The Following Link To Reset Your Password: {ResetLink}"
+                    Body = $"Click The Following Link To Reset Your Password: \n \n{ResetLink}"
                 };
 
                 await _email_service.Send_Email(to_email_service);
