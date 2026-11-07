@@ -1,0 +1,18 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+
+namespace Library_Management.Entities
+{
+    public class Admin_Credentials
+    {
+        [EmailAddress]
+        [Required]
+        public string User_Email { get; set; }
+
+        [Required]
+        public string User_Password { get; set; }
+
+        [NotNull]
+        public string User_Role { get; set; } = "Admin";
+    }
+}
