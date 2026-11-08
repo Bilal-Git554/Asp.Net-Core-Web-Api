@@ -48,6 +48,25 @@ namespace Library_Management.Repository
             await _context.SaveChangesAsync();
             return C;
         }
+        //User Sign Up
+
+        public async Task<Admin_Credentials> Add_Admin(Admin_Credentials C)
+        {
+            C.User_Password = BCrypt.Net.BCrypt.EnhancedHashPassword(C.User_Password, workFactor: 13);
+
+            var admin = new User_Credentials
+            {
+                User_Email = C.User_Email,
+                User_Password = C.User_Password,
+                User_Role = "Admin"
+            };
+
+            await _context.User_Credentials.AddAsync(admin);
+            await _context.SaveChangesAsync();
+
+            return C;
+        }
+        //Admin Sign Up
 
         public async Task<Forgot_Password?> Forgot_User(Forgot_Password email)
         {

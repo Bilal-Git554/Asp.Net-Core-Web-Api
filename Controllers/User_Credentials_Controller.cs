@@ -29,6 +29,15 @@ namespace Library_Management.Controllers
         }
 
 
+        [HttpPost]
+        public async Task<ActionResult<Admin_Credentials>> Add_Admin(Admin_Credentials C)
+        {
+            var Add = await _user_Credentials.Add_Admin(C);
+            return Ok(Add);
+        }
+
+
+
         [HttpPost("login")]
         public async Task<ActionResult<JWT_Service>> Login(User_Credentials T)
         {

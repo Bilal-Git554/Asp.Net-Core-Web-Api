@@ -6,6 +6,7 @@ namespace Library_Management.IRepository
     {
         Task<User_Credentials> GetUserbyEmail(User_Credentials F);
         Task<User_Credentials> Add_User(User_Credentials C);
+        Task<Admin_Credentials> Add_Admin(Admin_Credentials C);
         Task<Forgot_Password?> Forgot_User(Forgot_Password email);
         Task<Reset_Password?> Reset_User(Reset_Password reset);
     }
