@@ -21,7 +21,7 @@ namespace Library_Management.Controllers
         //T -> Token Purpose
         //F -> Fetch Purpose
         //C -> Create Purpose
-        [HttpPost]
+        [HttpPost("user")]
         public async Task<ActionResult<User_Credentials>> Add_User(User_Credentials C)
         {
             var Add = await _user_Credentials.Add_User(C);
@@ -29,7 +29,7 @@ namespace Library_Management.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost("admin")]
         public async Task<ActionResult<Admin_Credentials>> Add_Admin(Admin_Credentials C)
         {
             var Add = await _user_Credentials.Add_Admin(C);
