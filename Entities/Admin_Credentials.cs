@@ -7,12 +7,10 @@ namespace Library_Management.Entities
     {
         [EmailAddress]
         [Required]
-        public string User_Email { get; set; }
+        public string Admin_Email { get; set; }
 
         [Required]
-        public string User_Password { get; set; }
+        public string Admin_Password { get; set; }
 
-        [NotNull]
-        public string User_Role { get; set; } = "Admin";
     }
 }

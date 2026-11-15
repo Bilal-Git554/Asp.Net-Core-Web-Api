@@ -52,12 +52,12 @@ namespace Library_Management.Repository
 
         public async Task<Admin_Credentials> Add_Admin(Admin_Credentials C)
         {
-            C.User_Password = BCrypt.Net.BCrypt.EnhancedHashPassword(C.User_Password, workFactor: 13);
+            C.Admin_Password = BCrypt.Net.BCrypt.EnhancedHashPassword(C.Admin_Password, workFactor: 13);
 
             var admin = new User_Credentials
             {
-                User_Email = C.User_Email,
-                User_Password = C.User_Password,
+                User_Email = C.Admin_Email,
+                User_Password = C.Admin_Password,
                 User_Role = "Admin"
             };
 

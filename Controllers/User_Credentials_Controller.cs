@@ -1,5 +1,6 @@
 ﻿using Library_Management.Entities;
 using Library_Management.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,7 +29,7 @@ namespace Library_Management.Controllers
             return Ok(Add);
         }
 
-
+        [Authorize(Policy = "AdminOnly")]
         [HttpPost("admin")]
         public async Task<ActionResult<Admin_Credentials>> Add_Admin(Admin_Credentials C)
         {
@@ -37,7 +38,7 @@ namespace Library_Management.Controllers
         }
 
 
-
+        
         [HttpPost("login")]
         public async Task<ActionResult<JWT_Service>> Login(User_Credentials T)
         {
