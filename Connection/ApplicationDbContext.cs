@@ -17,5 +17,6 @@ namespace Library_Management.Connection
             modelBuilder.Entity<Book>().Property(c => c.Book_Id).ValueGeneratedNever();
             modelBuilder.Entity<Category>().Property(c => c.Category_Id).ValueGeneratedNever();
         }
+        //Fluent Api
     }  
 }

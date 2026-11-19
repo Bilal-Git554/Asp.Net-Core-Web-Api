@@ -49,6 +49,7 @@ namespace Library_Management.Repository
             Update.About_Book = U.About_Book;
             Update.Published_Date = U.Published_Date;
             Update.Category_Id = U.Category_Id;
+            _context.Books.Update(Update);
             await _context.SaveChangesAsync();
             return Update;
         }//Update Data By Id
